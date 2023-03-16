@@ -2,16 +2,16 @@ import { useState } from "react";
 import axios from "axios";
 import { baseURL } from "../api";
 
-
-const Update = ({id}) => {
+const Create = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [date, setDate] = useState("");
   const [type, setType] = useState("");
   const [number, setnumber] = useState("");
-  const handleUpdate = (e) => {
-    e.preventDefault()
-    axios.patch(`${baseURL}/${id}`, {
+  const handleCreate = (e) => {
+    e.preventDefault();
+    axios
+      .post(`${baseURL}/create`, {
         firstName,
         lastName,
         date,
@@ -22,11 +22,13 @@ const Update = ({id}) => {
         console.log(res.data);
         window.location.reload();
       });
-    };
-    const isbtnDisabled = [number, firstName, lastName, type, date].every(Boolean);
+  };
+
+  const isbtnDisabled = [number, firstName, lastName, type, date].every(Boolean);
+
   return (
     <div>
-      <form onSubmit={handleUpdate}>
+      <form onSubmit={handleCreate}>
         <label>
           First name:
           <input
@@ -72,4 +74,4 @@ const Update = ({id}) => {
   );
 };
 
-export default Update;
+export default Create;
